@@ -110,6 +110,7 @@ A synthetic public post advertises a bank account for rent and contains a disgui
 | Ishwarya K| Team Lead |
 | Karthikeyan V | Team Member |
 | Tharun | Team Member |
+| Janani priya V | Team Member |
 
 **GitHub:** [Karthix11](https://github.com/Karthix11)
 
