@@ -1,0 +1,78 @@
+================================================================================
+JAAL – QUALITY ASSURANCE AUDIT REPORT
+Rajasthan Police Cyber Security Hackathon 2026 (PS02)
+Generated: 2026-11-24
+================================================================================
+
+1. CROSS-SCREEN METRICS CONSISTENCY TABLE
+All metrics match 100% across Overview (#home), Network Graph (#graph),
+Evidence Report (#report), and the canonical data layer (data.json / data.js):
+
+---------------------------------------------------------------------------------------------------------------------------------
+Network ID    | Syndicate Name                       | Score | Ch Nodes | Graph Nodes | Posts | Last Seen (IST)
+---------------------------------------------------------------------------------------------------------------------------------
+JAAL-NET-001  | Mule Account Ring – Rentacct Demo    |  92   |    4     |      9      |   14  | 2026-11-23 05:05:12
+JAAL-NET-002  | Contraband Pharma Distribution Demo  |  74   |    2     |      5      |    6  | 2026-11-20 20:03:06
+JAAL-NET-003  | Forged Identity Document Network     |  61   |    2     |      5      |    6  | 2026-11-20 17:39:22
+JAAL-NET-004  | Illicit Firearms Trading Network     |  54   |    2     |      5      |    5  | 2026-11-19 06:15:55
+JAAL-NET-005  | Micro Mule Account Solicitation      |  48   |    2     |      5      |    5  | 2026-11-21 16:42:06
+---------------------------------------------------------------------------------------------------------------------------------
+Verification Result: PASS (Zero discrepancies across all 5 syndicates).
+
+
+2. WHAT WAS TESTED & VERIFIED
+
+A. Data Layer Integrity (validate.py):
+   - 23/23 tests passed.
+   - 100 posts (44 benign, 56 flagged; 38 English, 42 Hinglish, 20 Hindi Devanagari).
+   - 8 public Telegram channels.
+   - All score components strictly sum to network priority scores.
+   - All edge confidence scores match their respective component breakdowns.
+
+B. Cryptographic Hash Integrity:
+   - Evaluated all 100 posts against the canonical formula:
+     SHA-256(channel_name + '|' + time + '|' + text) using TextEncoder.
+   - Both Web Crypto (crypto.subtle) and pure-JS fallback (sha256_pure_js) tested.
+   - Result: 0 mismatches across 100 posts.
+
+C. Headless Browser DOM Scan & Route Integrity:
+   - Scanned rendered DOM text using Google Chrome Headless across routes:
+     * #home (Overview)
+     * #alert/P001, #alert/P007, #alert/P014 (Alert Investigation)
+     * #graph/JAAL-NET-001, #graph/JAAL-NET-002 (Network Graph)
+     * #lab (Obfuscation Lab)
+     * #report/JAAL-NET-001, #report/JAAL-NET-003 (Evidence Report)
+     * #unknown_route (Fallback routing to #home)
+   - Checks performed:
+     * 'undefined' in visible text: NONE (0 occurrences)
+     * 'NaN' in visible text: NONE (0 occurrences)
+     * '[object Object]' in visible text: NONE (0 occurrences)
+     * Global demo banner presence: CONFIRMED on every screen
+     * Global footer legal disclaimer: CONFIRMED on every screen
+
+D. Safety & Ethical Compliance Scan:
+   - Wording audit verified zero claims of live bank/telecom/police integration.
+   - Confirmed zero claims of "100% accuracy" or unverified criminality.
+   - Confirmed all phone numbers adhere strictly to "+91 90000 0xxxx" synthetic range.
+   - Confirmed all financial handles utilize "@fakebank" synthetic handles.
+   - Confirmed Section 63 block explicitly bears:
+     "Draft certificate format (Section 63, Bharatiya Sakshya Adhiniyam) - recommend legal review. Not claimed to be automatically admissible."
+
+E. Print Stylesheet Isolation (@media print):
+   - Verified that top navigation bar, global banner, interactive toolbar, action buttons, and global footer are hidden via display:none !important during print.
+   - Verified @page A4 formatting with 15mm margins and print-color-adjust: exact.
+   - Verified hashes and identifiers wrap with word-break: break-all.
+   - Verified table rows and Section 63 certificate block avoid page-break splits.
+
+
+3. WHAT COULD NOT BE DIRECTLY TESTED
+   - Output on a physical hardware paper printer (simulated and verified via Chrome print engine CSS rules and DOM media-query testing).
+
+
+4. KNOWN ISSUES / EDGE CASES HANDLED
+   - Non-secure file:// origin behavior: Some older browser installations disable window.crypto.subtle on non-https / non-localhost origins. JAAL embeds an autonomous FIPS 180-4 pure-JS SHA-256 fallback engine, which automatically activates and displays "Method: Pure JS SHA-256" with zero user intervention required.
+   - Invalid route handling: Any navigation to an invalid hash route (e.g. #random_path) or unknown network/post ID safely falls back to default views (#home or JAAL-NET-001) without throwing uncaught exceptions.
+
+================================================================================
+STATUS: QA PASSED — PRODUCTION-READY PROTOTYPE
+================================================================================
