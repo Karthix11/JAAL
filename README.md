@@ -107,7 +107,7 @@ A synthetic public post advertises a bank account for rent and contains a disgui
 
 | Name | Role |
 |---|---|
-| Ishwarya | Team Lead |
+| Ishwarya K| Team Lead |
 | Karthikeyan V | Team Member |
 | Tharun | Team Member |
 
